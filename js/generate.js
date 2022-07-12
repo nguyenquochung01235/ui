@@ -256,15 +256,15 @@ function checkDuplicateKey() {
 }
 
 function checkNumberOfRow() {
-  // let num = $("#number_of_row").val();
-  // if (num > 5000) {
-  //   alert("Max number of row is 5000 !!!");
-  //   alert("Nâng cấp lên bản vip bở rồ để unlimit feature ^^!");
-  //   $("#number").css("border", "2px solid red");
-  //   $("#number_of_row").val(5000);
-  //   $("#number").val(5000);
-  //   return false;
-  // }
+  let num = $("#number_of_row").val();
+  if (num > 10000) {
+    alert("Max number of row is 10000 !!!");
+    alert("Nâng cấp lên bản vip bở rồ để unlimit feature ^^!");
+    $("#number").css("border", "2px solid red");
+    $("#number_of_row").val(10000);
+    $("#number").val(10000);
+    return false;
+  }
   return true;
 }
 
