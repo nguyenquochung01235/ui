@@ -284,28 +284,33 @@ function checkNumberOfRow() {
 }
 
 $("#download").click(function () {
-  
-  if (checkKeyValueNull()) {
-    if (checkDuplicateKey() && checkNumberOfRow()) {
-      if(checkArrayNumberNull()){
-        generate();
+  if(checkFieldAble()){
+    if (checkKeyValueNull()) {
+      if (checkDuplicateKey() && checkNumberOfRow()) {
+        if(checkArrayNumberNull()){
+          generate();
+        }
       }
     }
   }
+  
   
   
 });
 
 $("#preview").click(function () {
-  if (checkKeyValueNull()) {
-    if (checkDuplicateKey() && checkNumberOfRow()) {
-      if(checkArrayNumberNull()){
-        preview();
-       appendReviewForm();
+  if(checkFieldAble()){
+    if (checkKeyValueNull()) {
+      if (checkDuplicateKey() && checkNumberOfRow()) {
+        if(checkArrayNumberNull()){
+          preview();
+         appendReviewForm();
+        }
+        
       }
-      
     }
   }
+  
 
   
 });
@@ -326,35 +331,6 @@ function appendReviewForm() {
   );
 }
 
-// function copyData() {
-//   var copyText = document.getElementById("preview-box");
-//   selectElementContents(copyText);
-//   alert("Copied the text");
-// }
-
-// function selectElementContents(el) {
-//   var body = document.body, range, sel;
-//   if (document.createRange && window.getSelection) {
-//       range = document.createRange();
-//       sel = window.getSelection();
-//       sel.removeAllRanges();
-//       try {
-//           range.selectNodeContents(el);
-//           sel.addRange(range);
-//       } catch (e) {
-//           range.selectNode(el);
-//           sel.addRange(range);
-//       }
-//       navigator.clipboard.writeText(range);
-//   } else if (body.createTextRange) {
-//       range = body.createTextRange();
-//       range.moveToElementText(el);
-//       range.select();
-//       range.setSelectionRange(0, 99999);
-//       navigator.clipboard.writeText(range.value);
-     
-//   }
-// }
 function copyData() {
   var copyText = document.getElementById("preview-box");
   copyText.select();
@@ -421,4 +397,13 @@ function checkKeyValueNull(){
   return true;
 }
 
+
+function checkFieldAble(){
+  var list = document.getElementsByClassName("key");
+  if(list.length == 0){
+    alert("Không có trường dữ liệu !!!\nVui lòng tạo trường dữ liệu để tạo data");
+    return false;
+  }
+  return true
+}
 
