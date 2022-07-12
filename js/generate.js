@@ -273,7 +273,7 @@ function checkNumberOfRow() {
     return false;
   }
 
-  if (num) {
+  if (num == '') {
     alert("Vui lòng nhập giá trị cho number of row");
     $("#number").css("border", "2px solid red");
     $("#number_of_row").val(1000);
