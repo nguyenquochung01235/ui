@@ -75,7 +75,7 @@ function generate() {
   
   $.ajax({
     type: "POST",
-    url: "http://localhost:5000/data/render",
+    url: "https://api-two-neon.vercel.app/data/render",
     data: {
       dataForm: data_1,
     },
