@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto Generate Data</title>
+    <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/2/29/FPT_Software_Logo.png" type="image/x-icon">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+
+    <!-- Start -->
+    <!-- Using a local copy -->
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/wenzhixin/multiple-select/e14b36de/multiple-select.css">
+    <script src="https://cdn.rawgit.com/wenzhixin/multiple-select/e14b36de/multiple-select.js"></script>
+    <!-- End -->
+
+
+</head>
+
+<body>
+    <div id="loading">
+        <p>Please waiting for process !</p>
+    </div>
+    <div class="container">
+
+        <div class="header">
+            <div class="main-header">
+                <div class="logo">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/29/FPT_Software_Logo.png" alt="">
+                </div>
+
+                <div class="title">
+                    <h1>Auto Generate Data</h1>
+                </div>
+
+                <div class="slogan">
+                    <div class="slogan_1">
+                        <h3>FSG.FIV Team CT</h3>
+                        <h6>community version 1.0.1</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="form-data">
+
+                <form id="main-form" class="connected-sortable droppable-area1">
+                    <br>
+                    <div class="label ui-disabled" >
+                        <label for="">Key Data</label>
+                        <label for="">Data Type</label>
+                        <label for="">Value Type</label>
+                        <label for="">Optional</label>
+                    </div>
+                    <input class="infor_of_data" type="number" id="number_of_row" name="number_of_row" value="100" >
+                    <input class="infor_of_data" type="text" id="format_file" name="format_file" value="JSON">
+                    <input class="infor_of_data" type="text" id="sql_table_name" name="sql_table_name" value="Example_1">
+                    <button id="submitform" style=" display: none;" type="submit">Render</button>   
+                
+                </form>
+                <button id="add-more">Add more</button>
+            </div>
+        </div>
+        <hr>
+        <div class="footer">
+            <label for="">File name: </label>
+            <input type="text" id="file_name" value="auto-generate-data">
+            <label for="">Number of row: </label>
+            <input type="number" id="number" value="100"  min="1" max="5000">
+            <label for="">Format data: </label>
+            <select name="format" id="format">
+                <option value="JSON">JSON</option>
+                <option value="CSV">CSV</option>
+                <option value="SQL">SQL</option>
+            </select>
+            <label for="">Feature: </label>
+            <button id="preview">Preview Data</button>
+            <button id="download">Download File</button>
+        </div>
+
+    </div>
+
+
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/jquery-ui.min.js"></script>
+
+    <script src="./js/app.js"></script>
+    <script src="./js/append.js"></script>
+    <script src="./js/render.js"></script>
+    <script src="./js/data_type_append.js"></script>
+    <script src="./js/generate.js"></script>
+
+
+
+
+    <table>
+        <thead>
+
+        </thead>
+        <tbody>
+            
+        </tbody>
+    </table>
+
+</body>
+
+</html>
