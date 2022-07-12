@@ -265,6 +265,20 @@ function checkNumberOfRow() {
     $("#number").val(10000);
     return false;
   }
+  if (num < 0) {
+    alert("Vui lòng nhập giá trị cho number of row");
+    $("#number").css("border", "2px solid red");
+    $("#number_of_row").val(1000);
+    $("#number").val(1000);
+    return false;
+  }
+  if (num = "") {
+    alert("Vui lòng nhập giá trị cho number of row");
+    $("#number").css("border", "2px solid red");
+    $("#number_of_row").val(1000);
+    $("#number").val(1000);
+    return false;
+  }
   return true;
 }
 
