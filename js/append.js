@@ -272,12 +272,12 @@ showValueTypeOptionBox = function (e) {
                 
                 <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>IPV4</h4>
-                    <p>Generate ID with 9 digits </p>
+                    <p>Generate IPV4 string </p>
                 </div>
                 
                 <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>IPV6</h4>
-                    <p>Generate ID with 9 digits </p>
+                    <p>Generate IPV6 string </p>
                 </div>
                 
                 <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
@@ -286,7 +286,10 @@ showValueTypeOptionBox = function (e) {
                 </div>
 
                 
-                
+                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                    <h4>UUID</h4>
+                    <p>Generate UUID</p>
+                </div>
                 <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>Username</h4>
                     <p>jame123, athonylis, miketonyd</p>
@@ -331,6 +334,11 @@ showValueTypeOptionBox = function (e) {
                 <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>Time</h4>
                     <p>Format 12h or 24h</p>
+                </div> 
+
+                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                    <h4>Text</h4>
+                    <p>Generate Text</p>
                 </div> 
                 
                
@@ -426,6 +434,10 @@ getAndAppendValueType = function (e, id) {
       
         case 'Time':
             appendTimeType(idString);
+        break;
+
+        case 'Text':
+            appendRandomTextType(idString);
         break;
 
        

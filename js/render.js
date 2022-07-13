@@ -298,3 +298,17 @@ appendYearType = function (id) {
     });
     setPlaceholder(id,'Select format')
 };
+
+appendRandomTextType = function (id) { 
+    removeOption(id);
+    $(id)
+    .parent()
+    .append(
+       `
+         <input class="custom" name="option_1_${returnIDOption(id)}" id="option_1_${returnIDOption(id)}" type="text" placeholder="Type your text or description">
+        
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        `
+    );
+
+ };
