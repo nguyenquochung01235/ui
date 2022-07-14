@@ -1,3 +1,5 @@
+const ENV = "http://127.0.0.1:5000/data/render";
+
 $('#loading').hide();
 
 function exportToJsonFile(jsonData, fileName) {
@@ -75,7 +77,7 @@ function generate() {
   
   $.ajax({
     type: "POST",
-    url: "https://api-two-neon.vercel.app/data/render",
+    url: ENV,
     data: {
       dataForm: data_1,
     },
@@ -141,12 +143,13 @@ function preview() {
   $('#loading').show();
   $.ajax({
     type: "POST",
-    url: "https://api-two-neon.vercel.app/data/render",
+    url: ENV,
     data: { 
       dataForm: data_1,
     },
     success: function (data) {
       var string = data;
+      
       switch (typeFile) {
         case "JSON":
           var index = 0;
@@ -157,11 +160,17 @@ function preview() {
           }
     
           data = JSON.parse(string);
+          
           $("#preview-box").text(JSON.stringify(data,null,4));
           break;
       
         case "CSV":
           if(checkDataType() != false){
+              let index = 0;
+              while (data.includes("{numberrow}")) {
+                data = data.replace("{numberrow}", index + 1);
+                index++;
+              }
               data = JSON.parse(data);
               // Header
               let thead ="";
@@ -190,7 +199,7 @@ function preview() {
                   `
                     <div id = "preview-box">
                     
-                      <table>
+                      <table id="csv-table">
                           <thead>
                             ${thead}
                           </thead>
@@ -202,18 +211,22 @@ function preview() {
                     </div>
                   `
                 );
-            // let csvStringReview = decodeURIComponent(parseJSONToCSVStr(JSON.parse(string))).replaceAll(",", "\t\t")
-            // $("#preview-box").val(csvStringReview);
           }else{
-            removePreviewBox();
+            removePreviewBox(); 
           }
           break;
 
         case "SQL":
           if(checkDataType() != false){
+            let index = 0;
+            while (data.includes("{numberrow}")) {
+              data = data.replace("{numberrow}", index + 1);
+              index++;
+            }
             data = data.replaceAll("'[", "[").replaceAll("]'", "]");
             data = data.replaceAll("'{", "{").replaceAll("}'", "}");
-            data = data.replaceAll(";", ";\n\n")
+            data = data.replaceAll(";", ";\n\n");
+
             $("#preview-box").append(data)
           }else{
             removePreviewBox();
@@ -256,31 +269,30 @@ function checkDuplicateKey() {
 }
 
 function checkNumberOfRow() {
-  let num = $("#number_of_row").val();
-  if (num > 10000) {
-    alert("Max number of row is 10000 !!!");
-    alert("Nâng cấp lên bản vip bở rồ để unlimit feature ^^!");
-    $("#number").css("border", "2px solid red");
-    $("#number_of_row").val(10000);
-    $("#number").val(10000);
-    return false;
-  }
-  if (num < 0) {
-    alert("Vui lòng nhập giá trị dương cho number of row");
-    $("#number").css("border", "2px solid red");
-    $("#number_of_row").val(1000);
-    $("#number").val(1000);
-    return false;
-  }
+    let num = $("#number_of_row").val();
+    if (num > 100000) {
+      if(confirm(`Because of the large amount of data, the waiting time is long!\nDo you want to generate ${num} row`) == true){
+        return true;
+      }else{
+        return false;
+      }
+    }
+    if (num < 0) {
+      alert("Vui lòng nhập giá trị dương cho number of row");
+      $("#number").css("border", "2px solid red");
+      $("#number_of_row").val(1000);
+      $("#number").val(1000);
+      return false;
+    }
 
-  if (num == '') {
-    alert("Vui lòng nhập giá trị cho number of row");
-    $("#number").css("border", "2px solid red");
-    $("#number_of_row").val(1000);
-    $("#number").val(1000);
-    return false;
-  }
-  return true;
+    if (num == '') {
+      alert("Vui lòng nhập giá trị cho number of row");
+      $("#number").css("border", "2px solid red");
+      $("#number_of_row").val(1000);
+      $("#number").val(1000);
+      return false;
+    }
+    return true;
 }
 
 $("#download").click(function () {

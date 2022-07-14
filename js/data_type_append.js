@@ -12,6 +12,8 @@ removeNormalDataype = function (id) {
     $(`#option_2_${id}`).remove();
     $(`#option_3_${id}`).remove();
     $(`#date_start_${id}`).remove();
+    // $(`#option_btn_${id}`).remove();
+    $(`#option_field_${id}`).remove();
     $(`#date_end_${id}`).remove();
     $(`#date_format_${id}`).remove();
     $(`#form_group_${id} > .ms-parent`).remove();

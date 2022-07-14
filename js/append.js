@@ -1,3 +1,13 @@
+optionButtonField = function(e){
+    var idBtnOption = $(e).attr("id")
+    idfieldOption = idBtnOption.replace('option_btn_', '#option_field_')
+    $(idfieldOption).toggle(
+        function(){$(`#${idBtnOption}`).text()},
+        function(){$(`#${idBtnOption}`).text();}
+    );
+    
+}
+
 removeInputElement = function (e) {
     const child = document.getElementById($(e).attr('id'));
     const parent = child.closest('div.group-input');
@@ -5,6 +15,7 @@ removeInputElement = function (e) {
     var idBtnRemove = $(e).attr("id")
     removeObjectDatatype(idBtnRemove.replace('remove_btn_',''))
 };
+
 removeObjectInputElement = function (e) {
     e.parentNode.parentNode.removeChild(e.parentNode);
     var idBtnRemove = $(e).attr("id")
@@ -12,34 +23,50 @@ removeObjectInputElement = function (e) {
 };
 
 $("#add-more").click(function (e) {
-    var idString = Date.now() + 1;
-    $("#main-form").append(
-        `
-        <div class="group-input">
-        <img class="ui-disabled" src="https://banner2.cleanpng.com/20180329/ayq/kisspng-computer-icons-ellipsis-symbol-sign-dots-5abd400b161a68.1665258815223521390905.jpg">
-
-            <div class="right-input ui-disabled">
-            
-                <div class="form-group ui-disabled" id="form_group_${idString}" >
-                        
-                    <input class="key" name="key_${ idString}" id="key_${ idString}" type="text" placeholder="Key data">
-                    <select class="data_type" name="data_type_${idString}" id="data_type_${idString}" onchange="addDataTypeOption(this)">
-                        <option value="normal">Normal Value</option>
-                        <option value="array">Array</option>
-                        <option value="object">Object</option>
-                        <option value="arrobj">Array Object</option>
-                    </select>
-                    <select class="value" name="value_type_${idString}" id="value_type_${idString}" onclick="showValueTypeOptionBox(this)">
-                        <option>Select Value Type</option>
-                    </select>
-                    <button class="remove" id="remove_btn_${idString}" type="button" onClick="removeInputElement(this);">X</button>
+    let numberField = $("#number-row-of-field").val();
+    if(numberField <=0){
+        alert("Number of fields must be greater than 0 !")
+    }else{
+        for (let index = 1; index <= numberField; index++) {
+            var idString = Date.now() + index;
+            $("#main-form").append(
+                `
+                <div class="group-input">
+                <img class="ui-disabled" src="https://banner2.cleanpng.com/20180329/ayq/kisspng-computer-icons-ellipsis-symbol-sign-dots-5abd400b161a68.1665258815223521390905.jpg">
+    
+                    <div class="right-input ui-disabled">
+                    
+                        <div class="form-group ui-disabled" id="form_group_${idString}" >
+                                
+                            <input class="key" name="key_${ idString}" id="key_${ idString}" type="text" placeholder="Key data">
+                            <select class="data_type" name="data_type_${idString}" id="data_type_${idString}" onchange="addDataTypeOption(this)">
+                                <option value="normal">Normal Value</option>
+                                <option value="array">Array</option>
+                                <option value="object">Object</option>
+                                <option value="arrobj">Array Object</option>
+                            </select>
+                            <select class="value" name="value_type_${idString}" id="value_type_${idString}" onclick="showValueTypeOptionBox(this)">
+                                <option>Select Value Type</option>
+                            </select>
+                            <button class="remove" id="remove_btn_${idString}" type="button" onClick="removeInputElement(this);">X</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        `
-    );
+                `
+        );
+            
+        }
+
+    }
 });
 
+
+$("#clear-all").click(function () { 
+    if(confirm("Do you want to delete all ?") ==  true){
+        $(".group-input").remove();
+    }
+    
+});
 
 showValueTypeOptionBox = function (e) {
     var idString =  $(e).attr('id') 
@@ -53,9 +80,22 @@ showValueTypeOptionBox = function (e) {
                 <button style="float: right" onclick="closeValueTypeOptionBox('${idString}')">Close</button>
             </div>
             <hr>
+            <div class="template-value-type">
+                <span onclick="getTemplateValueType(this)" >All</span>
+                <span onclick="getTemplateValueType(this)" >Person</span>
+                <span onclick="getTemplateValueType(this)" >Information</span>
+                <span onclick="getTemplateValueType(this)" >Product</span>
+                <span onclick="getTemplateValueType(this)" >Address</span>
+                <span onclick="getTemplateValueType(this)" >Technology</span>
+                <span onclick="getTemplateValueType(this)" >Bank</span>
+                <span onclick="getTemplateValueType(this)" >Office</span>
+                <span onclick="getTemplateValueType(this)" >Properties</span>
+                <span onclick="getTemplateValueType(this)" >Other</span>
+            </div>
+            <hr>
             <div class="option-zone">
                 
-                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                <div class="type-option" aria-label="Other" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>Animal Name</h4>
                     <p>Generate animal name</p>
                 </div>
@@ -73,7 +113,7 @@ showValueTypeOptionBox = function (e) {
                     <h4>App Name</h4>
                     <p>Fake app name</p> 
                 </div>
-                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                <div class="type-option" aria-label="Person" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>Avatar</h4>
                     <p>Link avatar</p> 
                 </div>
@@ -199,12 +239,12 @@ showValueTypeOptionBox = function (e) {
                     <p>exam.exe, file.jar, auto.bat</p> 
                 </div>
 
-                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                <div class="type-option" aria-label="Person" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>First Name</h4>
                     <p>Jame, Athony, Mike</p>
                 </div>
 
-                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                <div class="type-option" aria-label="Person" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>Fullname</h4>
                     <p>Leo Jame, Mark Athony, Mike Tyson</p>
                 </div>
@@ -224,7 +264,7 @@ showValueTypeOptionBox = function (e) {
                     <p>English, Vietnamese, Japan</p>
                 </div>
 
-                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                <div class="type-option" aria-label="Person" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>Last Name</h4>
                     <p>Jame, Athony, Mike</p>
                 </div>
@@ -244,7 +284,7 @@ showValueTypeOptionBox = function (e) {
                     <p>Asia/Manila, Asia/Urumqi, America/Santarem</p>
                 </div>
 
-                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                <div class="type-option" aria-label="Person" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>Gender</h4>
                     <p>Male, Female</p>
                 </div>
@@ -290,7 +330,7 @@ showValueTypeOptionBox = function (e) {
                     <h4>UUID</h4>
                     <p>Generate UUID</p>
                 </div>
-                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                <div class="type-option" aria-label="Person" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>Username</h4>
                     <p>jame123, athonylis, miketonyd</p>
                 </div>
@@ -316,7 +356,7 @@ showValueTypeOptionBox = function (e) {
                     <h4>Number Row</h4>
                     <p>1-2-3-4</p>
                 </div> 
-                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                <div class="type-option" aria-label="Person" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>Phone Number</h4>
                     <p>098x-xxx-xxxF </br> +84-xxx-xxx-xxx</p>
                 </div> 
@@ -339,9 +379,15 @@ showValueTypeOptionBox = function (e) {
                 <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
                     <h4>Text</h4>
                     <p>Generate Text</p>
-                </div> 
+                </div>
+
+                <div class="type-option" onclick="getAndAppendValueType(this,'${idString}')" >
+                    <h4>Customize</h4>
+                    <p>Customize data from user</p>
+                </div>  
                 
                
+
             </div>
         </div>
     </div>
@@ -440,6 +486,10 @@ getAndAppendValueType = function (e, id) {
             appendRandomTextType(idString);
         break;
 
+        case 'ID':
+            appendRandomIDType(idString);
+        break;
+
        
     
         default:
@@ -469,7 +519,31 @@ searchValueType = function(){
             $(list[i]).hide()
         }
     }
-    
+
 
 }
+
+getTemplateValueType = function (e) { 
+
+   
+    var list = document.getElementsByClassName("type-option");
+    if($(e).text() == "All"){
+        for (var i = 0; i < list.length; i++) { 
+                $(list[i]).show();
+        }
+    }else{
+        for (var i = 0; i < list.length; i++) {
+            let ariaLabel = $(list[i]).attr("aria-label");
+    
+            if(ariaLabel == $(e).text()) {
+                $(list[i]).show()
+            }else{
+                $(list[i]).hide()
+            }
+        }
+    }
+    
+ }
+
+
 

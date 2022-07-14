@@ -14,6 +14,8 @@ removeOption = function (id) {
     $(`#option_1_${idOption}`).remove();
     $(`#option_2_${idOption}`).remove();
     $(`#option_3_${idOption}`).remove();
+    $(`#option_btn_${idOption}`).remove();
+    $(`#option_field_${idOption}`).remove();
     $(`#date_start_${idOption}`).remove();
     $(`#date_end_${idOption}`).remove();
     $(`#date_format_${idOption}`).remove();
@@ -29,8 +31,14 @@ removeOption = function (id) {
     $(`#date_end_object_${idOption}`).remove();
     $(`#date_format_object_${idOption}`).remove();
     $(`#form_group_object_${idOption} > .ms-parent`).remove();
+   
+}
 
-    
+checkDataTypeInput = function(id){
+    if(id.includes("object")){
+        return `removeObjectInputElement(this);`
+    }
+    return `removeInputElement(this);`
 }
 
 appendNormalType = function (id) {
@@ -42,14 +50,14 @@ appendNormalType = function (id) {
     .parent()
     .append(
        `
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
 
 };
 
 
-appendEmailType = function (id) { 
+ appendEmailType = function (id) {
     //Remove
     removeOption(id)
     //Append
@@ -66,7 +74,7 @@ appendEmailType = function (id) {
             <option value="example">@example.com</option>
             
         </select>
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
     $(`#option_1_${returnIDOption(id)}`).multipleSelect({
@@ -108,7 +116,7 @@ appendDatetimeType = function (id) {
                 <option value="sqltime">SQL Time</option>
             </select>
         </div>
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
  };
@@ -123,7 +131,7 @@ appendRandomListType = function (id) {
        `
          <input class="custom" name="option_1_${returnIDOption(id)}" id="option_1_${returnIDOption(id)}" type="text" placeholder="item_1, item_2, item_3">
         
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
 
@@ -145,7 +153,7 @@ appendCreditCardType = function (id) {
             
             
         </select>
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
     $(`#option_1_${returnIDOption(id)}`).multipleSelect({
@@ -165,7 +173,7 @@ appendRandomNumberType = function (id) {
          <input class="custom-1" name="option_1_${returnIDOption(id)}" id="option_1_${returnIDOption(id)}" type="number" placeholder="From">
          <input class="custom-1" name="option_2_${returnIDOption(id)}" id="option_2_${returnIDOption(id)}" type="number" placeholder="To">
         
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
 
@@ -184,7 +192,7 @@ appendRandomNumberType = function (id) {
             <option value=":">AA:BB:CC:DD:EE:FF</option>
             <option value="-">AA-BB-CC-DD-EE-FF</option>     
         </select>
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
     $(`#option_1_${returnIDOption(id)}`).multipleSelect({
@@ -203,7 +211,7 @@ appendPasswordType = function (id) {
          <input class="custom-1" name="option_1_${returnIDOption(id)}" id="option_1_${returnIDOption(id)}" type="number" placeholder="From">
          <input class="custom-1" name="option_2_${returnIDOption(id)}" id="option_2_${returnIDOption(id)}" type="number" placeholder="To">
         
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
 
@@ -224,7 +232,7 @@ appendPasswordType = function (id) {
             <option value="+84 ### ### ###">+84 ### ### ###</option>
             <option value="0#########">0#########</option>
         </select>
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
     $(`#option_1_${returnIDOption(id)}`).multipleSelect({
@@ -242,7 +250,7 @@ appendAgeType = function (id) {
          <input class="custom-1" name="option_1_${returnIDOption(id)}" id="option_1_${returnIDOption(id)}" type="number" placeholder="From">
          <input class="custom-1" name="option_2_${returnIDOption(id)}" id="option_2_${returnIDOption(id)}" type="number" placeholder="To">
         
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
 
@@ -257,7 +265,7 @@ appendYearType = function (id) {
          <input class="custom-1" name="option_1_${returnIDOption(id)}" id="option_1_${returnIDOption(id)}" type="number" placeholder="From">
          <input class="custom-1" name="option_2_${returnIDOption(id)}" id="option_2_${returnIDOption(id)}" type="number" placeholder="To">
         
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
 
@@ -272,7 +280,7 @@ appendYearType = function (id) {
          <input class="custom-1" name="option_1_${returnIDOption(id)}" id="option_1_${returnIDOption(id)}" type="number" placeholder="Length from">
          <input class="custom-1" name="option_2_${returnIDOption(id)}" id="option_2_${returnIDOption(id)}" type="number" placeholder="to">
         
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
 
@@ -290,7 +298,7 @@ appendYearType = function (id) {
             <option value="12 Hour">12 Hour</option>
             <option value="24 Hour">24 Hour</option>     
         </select>
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
     $(`#option_1_${returnIDOption(id)}`).multipleSelect({
@@ -307,8 +315,33 @@ appendRandomTextType = function (id) {
        `
          <input class="custom" name="option_1_${returnIDOption(id)}" id="option_1_${returnIDOption(id)}" type="text" placeholder="Type your text or description">
         
-        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="removeInputElement(this);">X</button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
         `
     );
 
  };
+
+
+ appendRandomIDType = function (id) { 
+    removeOption(id);
+    $(id)
+    .parent()
+    .append(
+       `
+       <div class="option-field" id="option_field_${returnIDOption(id)}" style="display: none">
+            <input class="user-custom" name="option_1_${returnIDOption(id)}" id="option_1_${returnIDOption(id)}" type="text" placeholder="Static string">
+            <select class="user-custom" name="option_2_${returnIDOption(id)}" id="option_2_${returnIDOption(id)}">
+                <option value="number">Dynamic Number</option>
+                <option value="character">Dynamic Character</option>
+                <option value="numberandcharacter">Aboth</option>
+            </select>
+            <input class="user-custom" name="option_3_${returnIDOption(id)}" id="option_3_${returnIDOption(id)}" type="number" placeholder="Lenght of string" >
+        </div>
+        
+        <button class="btn-option" id="option_btn_${returnIDOption(id)}" type="button" onClick="optionButtonField(this);"> Option </button>
+        <button class="remove" id="remove_btn_${returnIDOption(id)}" type="button" onClick="${checkDataTypeInput(id)}">X</button>
+        `
+    );
+
+ };
+ 
