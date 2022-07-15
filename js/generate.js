@@ -298,7 +298,6 @@ function preview() {
           let InputJSON = `{"body":{"entry":`  + data + `}}`;
           let output = eval("OBJtoXML("+InputJSON+");")
           let xmlStr = `<?xml version='1.0' encoding='UTF-8'?>\n`+ formatXml(output)
-          console.log(xmlStr);
           $("#preview-box").text(xmlStr)
           break;
 
