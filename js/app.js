@@ -35,6 +35,8 @@ defaultFormInputElement = function (e) {
                         <div class="option-field" id="option_field_${idString+1}" style="display: none">
                             <input class="user-custom" name="option_1_${idString+1}" id="option_1_${idString+1}" type="text" placeholder="Static string">
                             <select class="user-custom" name="option_2_${idString+1}" id="option_2_${idString+1}">
+                            <option value="">Dynamic String</option>
+                            <option value="numberrow">Number Row</option>
                             <option value="number">Dynamic Number</option>
                             <option value="character">Dynamic Character</option>
                             <option value="numberandcharacter">Aboth</option>

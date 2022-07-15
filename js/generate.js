@@ -1,4 +1,5 @@
-const ENV = "http://127.0.0.1:5000/data/render";
+const ENV_api_local = "http://127.0.0.1:5000/data/render";
+const ENV_api_host = "https://api-two-neon.vercel.app/data/render";
 
 $('#loading').hide();
 
@@ -63,6 +64,59 @@ function exportToCsvFile(jsonData, fileName) {
   linkElement.click();
 }
 
+
+
+
+
+
+formatXml = function (xml) {
+  var formatted = '';
+  var reg = /(>)(<)(\/*)/g;
+  xml = xml.replace(reg, '$1\r\n$2$3');
+  var pad = 0;
+  jQuery.each(xml.split('\r\n'), function(index, node) {
+      var indent = 0;
+      if (node.match( /.+<\/\w[^>]*>$/ )) {
+          indent = 0;
+      } else if (node.match( /^<\/\w/ )) {
+          if (pad != 0) {
+              pad -= 1;
+          }
+      } else if (node.match( /^<\w[^>]*[^\/]>.*$/ )) {
+          indent = 1;
+      } else {
+          indent = 0;
+      }
+
+      var padding = '';
+      for (var i = 0; i < pad; i++) {
+          padding += '  ';
+      }
+
+      formatted += padding + node + '\r\n';
+      pad += indent;
+  });
+
+  return formatted;
+}
+
+
+
+function exportToXMLFile(jsonData, fileName) { 
+  var InputJSON = `{"body":{"entry":`  + jsonData + `}}`;
+  var output = eval("OBJtoXML("+InputJSON+");")
+  xmlStr= `<?xml version='1.0' encoding='UTF-8'?>\n`+formatXml(output)
+  
+  let dataUri = "data:text/xml;base64," +btoa(xmlStr);
+  let exportFileDefaultName = `${fileName}.xml`;
+
+  let linkElement = document.createElement("a");
+  linkElement.setAttribute("href", dataUri);
+  linkElement.setAttribute("download", exportFileDefaultName);
+  linkElement.click();
+ }
+
+
 function generate() {
  
   var t0 = performance.now();
@@ -77,7 +131,7 @@ function generate() {
   
   $.ajax({
     type: "POST",
-    url: ENV,
+    url: ENV_api_host,
     data: {
       dataForm: data_1,
     },
@@ -119,6 +173,10 @@ function generate() {
           
           break;
 
+        case "XML":
+          exportToXMLFile(data,fileName)
+          break; 
+          
         default:
           break;
       }
@@ -143,7 +201,7 @@ function preview() {
   $('#loading').show();
   $.ajax({
     type: "POST",
-    url: ENV,
+    url: ENV_api_host,
     data: { 
       dataForm: data_1,
     },
@@ -162,6 +220,7 @@ function preview() {
           data = JSON.parse(string);
           
           $("#preview-box").text(JSON.stringify(data,null,4));
+          
           break;
       
         case "CSV":
@@ -233,6 +292,14 @@ function preview() {
           }
           
 
+          break;
+          
+        case "XML":
+          let InputJSON = `{"body":{"entry":`  + data + `}}`;
+          let output = eval("OBJtoXML("+InputJSON+");")
+          let xmlStr = `<?xml version='1.0' encoding='UTF-8'?>\n`+ formatXml(output)
+          console.log(xmlStr);
+          $("#preview-box").text(xmlStr)
           break;
 
         default:
@@ -419,3 +486,28 @@ function checkFieldAble(){
   return true
 }
 
+
+
+
+
+function OBJtoXML(obj) {
+    var xml = '';
+    for (var prop in obj) {
+      xml += obj[prop] instanceof Array ? '' : "<" + prop + ">";
+      if (obj[prop] instanceof Array) {
+        for (var array in obj[prop]) {
+          xml += "<" + prop + ">";
+          xml += OBJtoXML(new Object(obj[prop][array]));
+          xml += "</" + prop + ">";
+        }
+      } else if (typeof obj[prop] == "object") {
+        xml += OBJtoXML(new Object(obj[prop]));
+      } else {
+        xml += obj[prop];
+      }
+      xml += obj[prop] instanceof Array ? '' : "</" + prop + ">";
+    }
+    var xml = xml.replace(/<\/?[0-9]{1,}>/g, '');
+    xml = xml.replaceAll('&', '');
+  return xml
+}

@@ -69,6 +69,10 @@ h6 {
     height: 75%;
 }
 
+.form-data{
+    margin-top: -20px;
+}
+
 .infor_of_data{
     display: none;
 }

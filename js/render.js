@@ -331,6 +331,8 @@ appendRandomTextType = function (id) {
        <div class="option-field" id="option_field_${returnIDOption(id)}" style="display: none">
             <input class="user-custom" name="option_1_${returnIDOption(id)}" id="option_1_${returnIDOption(id)}" type="text" placeholder="Static string">
             <select class="user-custom" name="option_2_${returnIDOption(id)}" id="option_2_${returnIDOption(id)}">
+                <option value="">Dynamic String</option>
+                <option value="numberrow">Number Row</option>
                 <option value="number">Dynamic Number</option>
                 <option value="character">Dynamic Character</option>
                 <option value="numberandcharacter">Aboth</option>

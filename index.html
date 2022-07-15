@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Generater</title>
+    <title>Data Generator</title>
     <link rel="shortcut icon" href="https://upload.wikimedia.org/wikipedia/commons/2/29/FPT_Software_Logo.png" type="image/x-icon">
     <link rel="stylesheet" href="./css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="title">
-                    <h1>Data Generater</h1>
+                    <h1>Data Generator</h1>
                 </div>
 
                 <div class="slogan">
@@ -50,7 +50,7 @@
         <div class="content">
             <div class="form-data">
 
-                <form id="main-form" class="connected-sortable droppable-area1">
+                <form id="main-form" class="connected-sortable droppable-area1" enctype="multipart/form-data">
                     <br>
                     <div class="label ui-disabled" >
                         <label for="">Key Data</label>
@@ -81,6 +81,7 @@
                 <option value="JSON">JSON</option>
                 <option value="CSV">CSV</option>
                 <option value="SQL">SQL</option>
+                <option value="XML">XML</option>
             </select>
             <label for="">Feature: </label>
             <button id="preview">Preview Data</button>
@@ -98,8 +99,13 @@
     <script src="./js/data_type_append.js"></script>
     <script src="./js/generate.js"></script>
 
+    
+
+    <script src="./js/text.js"></script>
 
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/jszip.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.8.0/xlsx.js"></script>
 
     <table>
         <thead>
