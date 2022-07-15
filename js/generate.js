@@ -295,10 +295,10 @@ function preview() {
           break;
           
         case "XML":
-          let index = 0;
+          let xml_index = 0;
           while (data.includes("{numberrow}")) {
-            data = data.replace("{numberrow}", index + 1);
-            index++;
+            data = data.replace("{numberrow}", xml_index + 1);
+            xml_index++;
           }
           let InputJSON = `{"body":{"entry":`  + data + `}}`;
           let output = eval("OBJtoXML("+InputJSON+");")
