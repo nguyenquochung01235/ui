@@ -295,6 +295,11 @@ function preview() {
           break;
           
         case "XML":
+          let index = 0;
+          while (data.includes("{numberrow}")) {
+            data = data.replace("{numberrow}", index + 1);
+            index++;
+          }
           let InputJSON = `{"body":{"entry":`  + data + `}}`;
           let output = eval("OBJtoXML("+InputJSON+");")
           let xmlStr = `<?xml version='1.0' encoding='UTF-8'?>\n`+ formatXml(output)
