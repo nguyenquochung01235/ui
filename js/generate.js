@@ -1,5 +1,5 @@
-const ENV_api_local = "http://127.0.0.1:5000/data/render";
-const ENV_api_host = "https://api-two-neon.vercel.app/data/render";
+const ENV_api_host = "http://127.0.0.1:5000/data/render";
+// const ENV_api_host = "https://api-two-neon.vercel.app/data/render";
 
 $('#loading').hide();
 
@@ -64,6 +64,13 @@ function exportToCsvFile(jsonData, fileName) {
   linkElement.click();
 }
 
+function exportToExcelFile(jsonData, fileName) {
+  jsonData = JSON.parse(jsonData)
+  var ws = XLSX.utils.json_to_sheet(jsonData);
+  var wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, "Data");
+  XLSX.writeFile(wb,`${fileName}.xlsx`)
+}
 
 
 
@@ -166,6 +173,14 @@ function generate() {
           }
           break;
 
+        case "EXCEL":
+          var jsonStr = data;
+          var jsonObj = JSON.parse(jsonStr);
+          if(checkDataType() != false){
+            exportToExcelFile(data, fileName)
+          }
+          break;
+
         case "SQL":
           if(checkDataType() != false){
             exportToSqlFile(data, fileName);
@@ -230,6 +245,60 @@ function preview() {
                 data = data.replace("{numberrow}", index + 1);
                 index++;
               }
+              console.log(data);
+              data = JSON.parse(data);
+              // Header
+              let thead ="";
+              keyArray = Object.keys(data[0])
+              
+              keyArray.forEach(element => {
+                thead = thead + `<td>${element}</td>`
+              });
+
+              // Body
+              let tbody = ""
+              for (let i = 0; i < data.length; i++) {
+                
+                valueArray = Object.values(data[i]);
+                let trow = ""
+                valueArray.forEach(element => {
+                  trow = trow + `<td>${element}\t</td>`
+                });
+                tbody = tbody +  `<tr>${trow}</tr>`
+              }
+              
+
+              
+              
+                $("#preview-box").replaceWith(
+                  `
+                    <div id = "preview-box">
+                    
+                      <table id="csv-table">
+                          <thead>
+                            ${thead}
+                          </thead>
+                          <tbody>
+                              ${tbody}
+                          </tbody>
+                      </table>
+                      
+                    </div>
+                  `
+                );
+          }else{
+            removePreviewBox(); 
+          }
+          break;
+
+        case "EXCEL":
+          if(checkDataType() != false){
+              let index = 0;
+              while (data.includes("{numberrow}")) {
+                data = data.replace("{numberrow}", index + 1);
+                index++;
+              }
+              console.log(data);
               data = JSON.parse(data);
               // Header
               let thead ="";

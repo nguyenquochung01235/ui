@@ -41,7 +41,7 @@ defaultFormInputElement = function (e) {
                             <option value="character">Dynamic Character</option>
                             <option value="numberandcharacter">Aboth</option>
                         </select>
-                            <input class="user-custom" name="option_3_${idString+1}" id="option_3_${idString+1}" type="text" placeholder="Length of string" >
+                            <input type="number" class="user-custom" name="option_3_${idString+1}" id="option_3_${idString+1}" placeholder="Length of string" >
                         </div>
                         
                         <button class="btn-option" id="option_btn_${idString+1}" type="button" onClick="optionButtonField(this);"> Option </button>

@@ -75,6 +75,7 @@ showValueTypeOptionBox = function (e) {
         <div class="value-type-zone">
         <div class="value-type-option" id="value_type_option_${idString}" style="overflow-y: auto;"> 
             <div class="value-search">
+                
                 <p>Search: </p>
                 <input type="text" id="search_value_type" onkeyup="searchValueType()" placeholder="Enter type name">
                 <button style="float: right" onclick="closeValueTypeOptionBox('${idString}')">Close</button>
@@ -544,6 +545,9 @@ getTemplateValueType = function (e) {
     }
     
  }
+
+
+
 
 
 
